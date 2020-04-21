@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -15,14 +14,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        AlarmController.shared.alarms = AlarmController.shared.loadFromPersisentStore()
+        //AlarmController.shared.alarms = AlarmController.shared.loadFromPersisentStore()
 
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (accepted, error) in
-            if !accepted{
-                print("Notification access has been denied")
+            if accepted {
+                print("User has granted permission")
+            } else {
+                print("User has denied permission")
             }
         }
         
